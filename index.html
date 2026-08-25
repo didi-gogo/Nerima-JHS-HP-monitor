@@ -1,561 +1,198 @@
-﻿
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="ja">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>練馬区立中学校 情報巡回ツール（GitHub版）</title>
-
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-<style>
-
-.updated {
-
-background-color: #fef3c7;
-
-animation: highlight 2s ease-in-out;
-
-}
-
-@keyframes highlight {
-
-0% { background-color: #fef3c7; }
-
-50% { background-color: #fde68a; }
-
-100% { background-color: #fef3c7; }
-
-}
-
-.school-row:nth-child(even) {
-
-background-color: #f9fafb;
-
-}
-
-.school-row:hover {
-
-background-color: #f3f4f6;
-
-}
-
-</style>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:,">
+  <title>練馬区立中学校 情報巡回ツール</title>
+  <style>
+    :root { color: #172033; background: #f4f6f8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans JP", sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .container { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 48px; }
+    h1 { margin: 0 0 8px; font-size: clamp(1.5rem, 3vw, 2rem); }
+    .lead, .muted { color: #5b667a; }
+    .lead { margin: 0 0 20px; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+    button { border: 0; border-radius: 7px; padding: 10px 15px; font: inherit; font-weight: 700; cursor: pointer; }
+    button:disabled { opacity: .6; cursor: wait; }
+    .primary { color: white; background: #155eef; }
+    .secondary { color: #23314d; background: #e8edf5; }
+    .danger { color: #9f1c1c; background: #fee2e2; }
+    .summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
+    .summary > div { background: white; border: 1px solid #dfe5ec; border-radius: 9px; padding: 13px 15px; }
+    .summary strong { display: block; font-size: 1.45rem; }
+    .summary span { color: #5b667a; font-size: .84rem; }
+    .notice { border-radius: 8px; padding: 12px 14px; margin: 12px 0; }
+    .notice.info { background: #e8f1ff; color: #1849a9; }
+    .notice.error { background: #feecec; color: #9f1c1c; }
+    .hidden { display: none; }
+    .table-wrap { overflow-x: auto; background: white; border: 1px solid #dfe5ec; border-radius: 10px; }
+    table { width: 100%; border-collapse: collapse; min-width: 930px; }
+    th, td { padding: 12px 13px; border-bottom: 1px solid #e7ebf0; text-align: left; vertical-align: middle; }
+    th { background: #f6f8fa; color: #39465e; font-size: .78rem; }
+    tbody tr:last-child td { border-bottom: 0; }
+    tr.is-updated { background: #fff8df; }
+    tr.has-error { background: #fff2f2; }
+    .school-name { font-weight: 700; }
+    .latest { max-width: 380px; }
+    .latest a { color: #175cd3; }
+    .latest time { display: block; color: #6b7382; font-size: .78rem; margin-top: 3px; }
+    .badge { display: inline-block; border-radius: 999px; padding: 4px 9px; font-size: .78rem; font-weight: 700; white-space: nowrap; }
+    .badge.updated { color: #92400e; background: #fde68a; }
+    .badge.ok { color: #166534; background: #dcfce7; }
+    .badge.pending { color: #3f4c63; background: #e9edf3; }
+    .badge.error { color: #991b1b; background: #fee2e2; }
+    .visit { color: white; background: #18794e; padding: 7px 11px; font-size: .82rem; }
+    footer { margin-top: 20px; color: #6b7382; font-size: .82rem; text-align: center; }
+    @media (max-width: 720px) {
+      .container { width: min(100% - 20px, 1180px); padding-top: 20px; }
+      .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
 </head>
-
-<body class="bg-gray-50 min-h-screen">
-
-<div class="container mx-auto px-4 py-8">
-
-<header class="mb-8">
-
-<h1 class="text-3xl font-bold text-gray-800 mb-2">練馬区立中学校 情報巡回ツール</h1>
-
-<p class="text-gray-600 mb-4">練馬区立中学校33校のホームページを行政番号順に巡回し、更新情報を確認できます。</p>
-
-<div class="flex flex-wrap gap-2 mb-4">
-
-<button id="visitAllBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow">
-
-全校巡回
-
-</button>
-
-<button id="clearDataBtn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow">
-
-データクリア
-
-</button>
-
-</div>
-
-<div id="visitingInfo" class="bg-blue-100 p-4 rounded shadow-sm mb-4 hidden">
-
-<p class="font-semibold">巡回中: <span id="currentVisitingSchool"></span></p>
-
-<p class="text-sm text-gray-600">自動で次の学校に移動します。中止するには画面を閉じてください。</p>
-
-</div>
-
-</header>
-
-
-
-<main>
-
-<div class="bg-white rounded-lg shadow overflow-hidden">
-
-<table class="min-w-full divide-y divide-gray-200">
-
-<thead class="bg-gray-100">
-
-<tr>
-
-<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">行政番号</th>
-
-<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">学校名</th>
-
-<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">最終確認日時</th>
-
-<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">状態</th>
-
-<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">操作</th>
-
-</tr>
-
-</thead>
-
-<tbody id="schoolList" class="divide-y divide-gray-200">
-
-<!-- JavaScript で動的に生成 -->
-
-</tbody>
-
-</table>
-
-</div>
-
-</main>
-
-
-
-<footer class="mt-8 text-center text-gray-600 text-sm">
-
-<p>© 2025 練馬区立中学校情報巡回ツール</p>
-
-<p class="mt-2">最終更新: 2025年5月4日</p>
-
-</footer>
-
-</div>
-
-
-
-<script>
-
-document.addEventListener('DOMContentLoaded', function() {
-
-// 学校データ (行政番号順)
-
-const schools = [
-
-{ id: 1, name: "練馬区立旭丘中学校", url: "https://www.nerima-tky.ed.jp/asahigaoka-j/" },
-
-{ id: 2, name: "練馬区立豊玉中学校", url: "https://www.nerima-tky.ed.jp/toyotama-j/" },
-
-{ id: 3, name: "練馬区立豊玉第二中学校", url: "https://www.nerima-tky.ed.jp/toyotama2-j/" },
-
-{ id: 4, name: "練馬区立中村中学校", url: "https://www.nerima-tky.ed.jp/nakamura-j/" },
-
-{ id: 5, name: "練馬区立開進第一中学校", url: "https://www.nerima-tky.ed.jp/kaishin1-j/" },
-
-{ id: 6, name: "練馬区立開進第二中学校", url: "https://www.nerima-tky.ed.jp/kaishin2-j/" },
-
-{ id: 7, name: "練馬区立開進第三中学校", url: "https://www.nerima-tky.ed.jp/kaishin3-j/" },
-
-{ id: 8, name: "練馬区立開進第四中学校", url: "https://www.nerima-tky.ed.jp/kaishin4-j/" },
-
-{ id: 9, name: "練馬区立北町中学校", url: "https://www.nerima-tky.ed.jp/kitamachi-j/" },
-
-{ id: 10, name: "練馬区立練馬中学校", url: "https://www.nerima-tky.ed.jp/nerima-j/" },
-
-{ id: 11, name: "練馬区立練馬東中学校", url: "https://www.nerima-tky.ed.jp/nerima-e-j/" },
-
-{ id: 12, name: "練馬区立貫井中学校", url: "https://www.nerima-tky.ed.jp/nukui-j/" },
-
-{ id: 13, name: "練馬区立田柄中学校", url: "https://www.nerima-tky.ed.jp/tagara-j/" },
-
-{ id: 14, name: "練馬区立豊渓中学校", url: "https://www.nerima-tky.ed.jp/hokei-j/" },
-
-{ id: 15, name: "練馬区立光が丘第一中学校", url: "https://www.nerima-tky.ed.jp/hikarigaoka1-j/" },
-
-{ id: 16, name: "練馬区立光が丘第二中学校", url: "https://www.nerima-tky.ed.jp/hikarigaoka2-j/" },
-
-{ id: 17, name: "練馬区立光が丘第三中学校", url: "https://www.nerima-tky.ed.jp/hikarigaoka3-j/" },
-
-{ id: 18, name: "練馬区立石神井中学校", url: "https://www.nerima-tky.ed.jp/shakujii-j/" },
-
-{ id: 19, name: "練馬区立石神井東中学校", url: "https://www.nerima-tky.ed.jp/shakujiihigashi-j/" },
-
-{ id: 20, name: "練馬区立石神井西中学校", url: "https://www.nerima-tky.ed.jp/shakujiinishi-j/" },
-
-{ id: 21, name: "練馬区立石神井南中学校", url: "https://www.nerima-tky.ed.jp/shakujiiminami-j/" },
-
-{ id: 22, name: "練馬区立上石神井中学校", url: "https://www.nerima-tky.ed.jp/kamishakujii-j/" },
-
-{ id: 23, name: "練馬区立南が丘中学校", url: "https://www.nerima-tky.ed.jp/minamigaoka-j/" },
-
-{ id: 24, name: "練馬区立谷原中学校", url: "https://www.nerima-tky.ed.jp/yawara-j/" },
-
-{ id: 25, name: "練馬区立三原台中学校", url: "https://www.nerima-tky.ed.jp/miharadai-j/" },
-
-{ id: 26, name: "練馬区立大泉中学校", url: "https://www.nerima-tky.ed.jp/ooizumi-j/" },
-
-{ id: 27, name: "練馬区立大泉第二中学校", url: "https://www.nerima-tky.ed.jp/ooizumi2-j/" },
-
-{ id: 28, name: "練馬区立大泉西中学校", url: "https://www.nerima-tky.ed.jp/ooizuminishi-j/" },
-
-{ id: 29, name: "練馬区立大泉北中学校", url: "https://www.nerima-tky.ed.jp/ooizumikita-j/" },
-
-{ id: 30, name: "練馬区立大泉学園中学校", url: "https://www.nerima-tky.ed.jp/ooizumigakuen-j/" },
-
-{ id: 31, name: "練馬区立大泉学園桜中学校", url: "https://www.nerima-tky.ed.jp/ooizumigakuensakura-j/" },
-
-{ id: 32, name: "練馬区立関中学校", url: "https://www.nerima-tky.ed.jp/seki-j/" },
-
-{ id: 33, name: "練馬区立八坂中学校", url: "https://www.nerima-tky.ed.jp/yasaka-j/" }
-
-];
-
-
-
-// ローカルストレージから訪問履歴を読み込む
-
-function loadVisitData() {
-
-try {
-
-const data = localStorage.getItem('nerimaSchoolsVisitData');
-
-return data ? JSON.parse(data) : {};
-
-} catch (e) {
-
-console.error('Failed to load visit data:', e);
-
-return {};
-
-}
-
-}
-
-
-
-// ローカルストレージに訪問履歴を保存
-
-function saveVisitData(data) {
-
-try {
-
-localStorage.setItem('nerimaSchoolsVisitData', JSON.stringify(data));
-
-} catch (e) {
-
-console.error('Failed to save visit data:', e);
-
-}
-
-}
-
-
-
-// 学校リストを表示する
-
-function renderSchoolList() {
-
-const schoolList = document.getElementById('schoolList');
-
-const visitData = loadVisitData();
-
-
-
-schoolList.innerHTML = '';
-
-
-
-schools.forEach(school => {
-
-const schoolData = visitData[school.id] || {};
-
-const lastVisit = schoolData.lastVisit ? new Date(schoolData.lastVisit) : null;
-
-const isUpdated = schoolData.isUpdated || false;
-
-
-
-const row = document.createElement('tr');
-
-row.className = `school-row ${isUpdated ? 'updated' : ''}`;
-
-row.setAttribute('data-school-id', school.id);
-
-
-
-row.innerHTML = `
-
-<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${school.id}</td>
-
-<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${school.name}</td>
-
-<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${lastVisit ? formatDate(lastVisit) : '未確認'}</td>
-
-<td class="px-6 py-4 whitespace-nowrap">
-
-${isUpdated ?
-
-'<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">更新あり</span>' :
-
-'<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">-</span>'}
-
-</td>
-
-<td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-
-<button class="visit-btn bg-green-600 hover:bg-green-700 text-white font-bold py-1 px-3 rounded text-xs" data-school-id="${school.id}">
-
-訪問
-
-</button>
-
-</td>
-
-`;
-
-
-
-schoolList.appendChild(row);
-
-});
-
-
-
-// 訪問ボタンにイベントリスナーを追加
-
-document.querySelectorAll('.visit-btn').forEach(button => {
-
-button.addEventListener('click', function() {
-
-const schoolId = parseInt(this.getAttribute('data-school-id'));
-
-visitSchool(schoolId);
-
-});
-
-});
-
-}
-
-
-
-// 学校のホームページを訪問
-
-function visitSchool(schoolId) {
-
-const school = schools.find(s => s.id === schoolId);
-
-if (!school) return;
-
-
-
-// ウィンドウを開く
-
-window.open(school.url, '_blank');
-
-
-
-// 訪問履歴を更新
-
-const visitData = loadVisitData();
-
-const prevData = visitData[schoolId] || {};
-
-const prevContent = prevData.content || '';
-
-
-
-// 現在の訪問情報を設定
-
-visitData[schoolId] = {
-
-lastVisit: new Date().toISOString(),
-
-content: prevContent,
-
-isUpdated: false // 直接確認した場合は更新フラグをリセット
-
-};
-
-
-
-saveVisitData(visitData);
-
-renderSchoolList();
-
-}
-
-
-
-// 全校を順番に巡回
-
-let currentVisitingIndex = 0;
-
-let isVisitingAll = false;
-
-
-
-function startVisitingAll() {
-
-isVisitingAll = true;
-
-currentVisitingIndex = 0;
-
-document.getElementById('visitingInfo').classList.remove('hidden');
-
-visitNextSchool();
-
-}
-
-
-
-function visitNextSchool() {
-
-if (!isVisitingAll || currentVisitingIndex >= schools.length) {
-
-isVisitingAll = false;
-
-document.getElementById('visitingInfo').classList.add('hidden');
-
-return;
-
-}
-
-
-
-const school = schools[currentVisitingIndex];
-
-document.getElementById('currentVisitingSchool').textContent = `${school.id}. ${school.name}`;
-
-
-
-// ウィンドウを開く
-
-const newWindow = window.open(school.url, '_blank');
-
-
-
-// 訪問履歴を更新
-
-const visitData = loadVisitData();
-
-const prevData = visitData[school.id] || {};
-
-const prevContent = prevData.content || '';
-
-
-
-// 現在の訪問情報を設定
-
-visitData[school.id] = {
-
-lastVisit: new Date().toISOString(),
-
-content: prevContent,
-
-isUpdated: false // 直接確認した場合は更新フラグをリセット
-
-};
-
-
-
-saveVisitData(visitData);
-
-renderSchoolList();
-
-
-
-// 5秒後に次の学校へ
-
-currentVisitingIndex++;
-
-setTimeout(() => {
-
-if (newWindow) {
-
-newWindow.close();
-
-}
-
-visitNextSchool();
-
-}, 5000);
-
-}
-
-
-
-// 日時をフォーマット
-
-function formatDate(date) {
-
-return `${date.getFullYear()}/${padZero(date.getMonth() + 1)}/${padZero(date.getDate())} ${padZero(date.getHours())}:${padZero(date.getMinutes())}`;
-
-}
-
-
-
-function padZero(num) {
-
-return num.toString().padStart(2, '0');
-
-}
-
-
-
-// データクリア
-
-function clearAllData() {
-
-if (confirm('全ての訪問データを削除します。よろしいですか？')) {
-
-localStorage.removeItem('nerimaSchoolsVisitData');
-
-renderSchoolList();
-
-alert('データを削除しました');
-
-}
-
-}
-
-
-
-// イベントリスナー
-
-document.getElementById('visitAllBtn').addEventListener('click', startVisitingAll);
-
-document.getElementById('clearDataBtn').addEventListener('click', clearAllData);
-
-
-
-// 初期表示
-
-renderSchoolList();
-
-});
-
-</script>
-
+<body>
+  <div class="container">
+    <header>
+      <h1>練馬区立中学校 情報巡回ツール</h1>
+      <p class="lead">33校のホームページ更新を自動確認します。「訪問」を押すと、その時点までを確認済みにします。</p>
+      <div class="toolbar">
+        <button id="refreshBtn" class="primary" type="button">最新状態を再読み込み</button>
+        <button id="openUpdatedBtn" class="secondary" type="button">更新校を順に開く</button>
+        <button id="clearDataBtn" class="danger" type="button">確認履歴をクリア</button>
+      </div>
+      <div id="loadingNotice" class="notice info">最新の監視結果を読み込んでいます。</div>
+      <div id="errorNotice" class="notice error hidden" role="alert"></div>
+      <div class="summary" aria-label="監視状況の概要">
+        <div><strong id="updatedCount">-</strong><span>更新あり</span></div>
+        <div><strong id="checkedCount">-</strong><span>確認済み</span></div>
+        <div><strong id="errorCount">-</strong><span>取得エラー</span></div>
+        <div><strong id="lastChecked">-</strong><span>監視データ取得日時</span></div>
+      </div>
+    </header>
+
+    <main class="table-wrap">
+      <table>
+        <thead>
+          <tr><th scope="col">番号</th><th scope="col">学校名</th><th scope="col">最新情報</th><th scope="col">状態</th><th scope="col">最終訪問</th><th scope="col">操作</th></tr>
+        </thead>
+        <tbody id="schoolList"></tbody>
+      </table>
+    </main>
+
+    <footer><p>監視結果はGitHub Actionsで3時間ごとに更新します。学校サイトの取得失敗は「取得エラー」として表示します。</p></footer>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'nerimaSchoolsMonitorAcknowledgementsV2';
+    let monitorData = null;
+
+    function loadAcknowledgements() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+      catch (error) { console.warn('確認履歴を読み込めませんでした', error); return {}; }
+    }
+    function saveAcknowledgements(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]);
+    }
+    function safeUrl(value) {
+      try { const url = new URL(value); return url.protocol === 'https:' ? url.href : '#'; }
+      catch { return '#'; }
+    }
+    function formatDate(value, short = false) {
+      if (!value) return '-';
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return '-';
+      return new Intl.DateTimeFormat('ja-JP', {
+        timeZone: 'Asia/Tokyo', year: short ? undefined : 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', hour12: false
+      }).format(date);
+    }
+    function getViewState(school, acknowledgements) {
+      if (school.error || !school.currentHash) return 'error';
+      const acknowledgement = acknowledgements[school.id];
+      if (!acknowledgement?.hash) return 'pending';
+      return acknowledgement.hash === school.currentHash ? 'ok' : 'updated';
+    }
+    function render() {
+      if (!monitorData?.schools) return;
+      const acknowledgements = loadAcknowledgements();
+      const list = document.getElementById('schoolList');
+      const counts = { updated: 0, ok: 0, pending: 0, error: 0 };
+      list.innerHTML = monitorData.schools.map(school => {
+        const state = getViewState(school, acknowledgements);
+        counts[state]++;
+        const acknowledgement = acknowledgements[school.id];
+        const label = { updated: '更新あり', ok: '確認済み', pending: '初回確認待ち', error: '取得エラー' }[state];
+        const latestUrl = safeUrl(school.latest?.link);
+        const latestTitle = school.latest?.title
+          ? `<a href="${escapeHtml(latestUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(school.latest.title)}</a>`
+          : '<span class="muted">情報なし</span>';
+        const latestDate = school.latest?.publishedAt ? `<time>${escapeHtml(formatDate(school.latest.publishedAt))}</time>` : '';
+        return `<tr class="${state === 'updated' ? 'is-updated' : ''} ${state === 'error' ? 'has-error' : ''}">
+          <td>${escapeHtml(school.id)}</td><td class="school-name">${escapeHtml(school.name)}</td>
+          <td class="latest">${latestTitle}${latestDate}</td><td><span class="badge ${state}">${label}</span></td>
+          <td>${escapeHtml(formatDate(acknowledgement?.visitedAt))}</td>
+          <td><button class="visit" type="button" data-school-id="${escapeHtml(school.id)}">訪問</button></td></tr>`;
+      }).join('');
+      document.getElementById('updatedCount').textContent = counts.updated;
+      document.getElementById('checkedCount').textContent = counts.ok;
+      document.getElementById('errorCount').textContent = counts.error;
+      document.getElementById('lastChecked').textContent = formatDate(monitorData.checkedAt, true);
+      list.querySelectorAll('.visit').forEach(button => button.addEventListener('click', () => visitSchool(Number(button.dataset.schoolId))));
+    }
+    function visitSchool(id) {
+      const school = monitorData.schools.find(item => item.id === id);
+      if (!school) return;
+      window.open(safeUrl(school.url), '_blank', 'noopener');
+      if (school.currentHash) {
+        const acknowledgements = loadAcknowledgements();
+        acknowledgements[id] = { hash: school.currentHash, visitedAt: new Date().toISOString() };
+        saveAcknowledgements(acknowledgements);
+        render();
+      }
+    }
+    async function loadStatus() {
+      const refreshButton = document.getElementById('refreshBtn');
+      const loadingNotice = document.getElementById('loadingNotice');
+      const errorNotice = document.getElementById('errorNotice');
+      refreshButton.disabled = true;
+      loadingNotice.classList.remove('hidden');
+      errorNotice.classList.add('hidden');
+      try {
+        const response = await fetch(`data/status.json?t=${Date.now()}`, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`監視データの取得に失敗しました（HTTP ${response.status}）`);
+        const data = await response.json();
+        if (data.schemaVersion !== 2 || !Array.isArray(data.schools)) throw new Error('監視データの形式が不正です');
+        monitorData = data;
+        render();
+      } catch (error) {
+        errorNotice.textContent = `${error.message}。しばらく待ってから再読み込みしてください。`;
+        errorNotice.classList.remove('hidden');
+      } finally {
+        refreshButton.disabled = false;
+        loadingNotice.classList.add('hidden');
+      }
+    }
+    function openUpdatedSchools() {
+      if (!monitorData) return;
+      const acknowledgements = loadAcknowledgements();
+      const updated = monitorData.schools.filter(school => getViewState(school, acknowledgements) === 'updated');
+      if (!updated.length) { alert('更新ありの学校はありません。'); return; }
+      if (!confirm(`${updated.length}校を新しいタブで開き、確認済みにします。よろしいですか？`)) return;
+      updated.forEach(school => window.open(safeUrl(school.url), '_blank', 'noopener'));
+      const now = new Date().toISOString();
+      updated.forEach(school => { acknowledgements[school.id] = { hash: school.currentHash, visitedAt: now }; });
+      saveAcknowledgements(acknowledgements);
+      render();
+    }
+    document.getElementById('refreshBtn').addEventListener('click', loadStatus);
+    document.getElementById('openUpdatedBtn').addEventListener('click', openUpdatedSchools);
+    document.getElementById('clearDataBtn').addEventListener('click', () => {
+      if (confirm('この端末に保存した確認履歴をすべて削除します。よろしいですか？')) { localStorage.removeItem(STORAGE_KEY); render(); }
+    });
+    loadStatus();
+  </script>
 </body>
-
 </html>
-
-<script id="html_badge_script1">
-
-window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-
-"remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDt94PgX4IcLstFWX80ktlHWbaqxSGWQvs%2BC7cz4r3cJXYiCMF8rF5T31J2tbDyfYuAVSaNhQ7DH%2FDJV40oMMBJXHxTJY%2FhqzRyqcI5HLPYUHhgnSQ5k15%2FEh6WJgjtT4U%2Bg%2By2lGUNxe0IRVm3ByhY4BARSlXWECPnhZNYN2QxRNZotHLpHg7JPVSpek1fb%2Flc3kmrTcTjZ9LMCp6ozDQvcm8tjlmrqRLAQ5wa9r%2BdgRTlFKNOcIzMYg42ci6z2NctT0yBTbxSVz7gd1TQ3iu%2BAADISff%2Bp%2BxwRM43FO%2FAYwN5WZHeyl6y8RtdzT3iP3jPmxiWb%2F3B3sc7OEp7vgT5kkAMWiU5Ep3IBbON6hYrI%2BQawgfJsrQRvE4TxucgdCRpB8QUZyzowzQZ4O3R9QeH6FaBhxwJgjlInNXBJ5FRdHsTmi2F3FPZFSreMWgZ3nes7QjQMLqRIsyC6lBtb4l8BSZSl33OhWiXEMhpMpXZDXMr2ObigNYIuHbYljHMlcEEkqsqrLLmezdkkLVxVNu78%3D";
-
-window.__genspark_locale = "ja-JP";
-
-window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDt94PgX4IcLstFWX80ktlHWbaqxSGWQvs+C7cz4r3cJXYiCMF8rF5T31J2tbDyfYuAVSaNhQ7DH/DJV40oMMBJXHxTJY/hqzRyqcI5HLPYUHhgnSQ5k15/Eh6WJgjtT4U+g+y2lGUNxe0IRVm3ByhY4BARSlXWECPnhZNYN2QxRNZotHLpHg7JPVSpek1fb/lc3kmrTcTjZ9LMCp6ozDQvcm8tjlmrqRLAQ5wa9r+dgRTlFKNOcIzMYg42ci6z2NctT0yBTbxSVz7gd1TQ3iu+AADISff+p+xwRM43FO/AYwN5WZHeyl6y8RtdzT3iP3jPmxiWb/3B3sc7OEp7vgT5kkAMWiU5Ep3IBbON6hYrI+QawgfJsrQRvE4TxucgdCRpB8QUZyzowzQZ4O3R9QeH6FaBhxwJgjlInNXBJ5FRdHsTmi2F3FPZFSreMWgZ3nes7QjQMLqRIsyC6lBtb4l8BSZSl33OhWiXEMhpMpXZDXMr2ObigNYIuHbYljHMlcEEkqsqrLLmezdkkLVxVNu78=";
-
-</script>
-
-
-
