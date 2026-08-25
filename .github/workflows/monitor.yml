@@ -1,0 +1,33 @@
+name: Monitor school websites
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */3 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: school-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Fetch and compare 33 school websites
+        run: python3 scripts/monitor.py
+      - name: Commit the monitoring snapshot
+        run: |
+          if git diff --quiet -- data/status.json; then
+            echo "No snapshot changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/status.json
+          git commit -m "Update school monitoring snapshot"
+          git push
