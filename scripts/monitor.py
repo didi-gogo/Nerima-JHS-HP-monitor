@@ -1,3 +1,4 @@
+/opt/homebrew/Library/Homebrew/cmd/shellenv.sh: line 21: /bin/ps: Operation not permitted
 #!/usr/bin/env python3
 """Fetch Nerima JHS sites server-side and write a stable monitoring snapshot."""
 
@@ -22,7 +23,7 @@ DEFAULT_OUTPUT = ROOT / "data" / "status.json"
 USER_AGENT = "Nerima-JHS-HP-monitor/2.0 (+https://github.com/didi-gogo/Nerima-JHS-HP-monitor)"
 
 SCHOOLS = [
-    (1, "練馬区立旭丘中学校", "asahigaoka-j"), (2, "練馬区立豊玉中学校", "toyotama-j"),
+    (1, "練馬区立みらい青空学園", "miraiaozora"), (2, "練馬区立豊玉中学校", "toyotama-j"),
     (3, "練馬区立豊玉第二中学校", "toyotama2-j"), (4, "練馬区立中村中学校", "nakamura-j"),
     (5, "練馬区立開進第一中学校", "kaishin1-j"), (6, "練馬区立開進第二中学校", "kaishin2-j"),
     (7, "練馬区立開進第三中学校", "kaishin3-j"), (8, "練馬区立開進第四中学校", "kaishin4-j"),
@@ -40,7 +41,8 @@ SCHOOLS = [
     (31, "練馬区立大泉学園桜中学校", "ooizumigakuensakura-j"), (32, "練馬区立関中学校", "seki-j"),
     (33, "練馬区立八坂中学校", "yasaka-j"),
 ]
-CMS_ID_OVERRIDES = {31: 159}  # 大泉学園桜中は小中一貫校「大泉桜学園」の共通サイト
+# 小中一貫校は従来の学校番号とは異なる共通CMSを使用する。
+CMS_ID_OVERRIDES = {1: 166, 31: 159}
 
 
 def iso_now() -> str:
