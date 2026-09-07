@@ -1,3 +1,4 @@
+/opt/homebrew/Library/Homebrew/cmd/shellenv.sh: line 21: /bin/ps: Operation not permitted
 import importlib.util
 import unittest
 from pathlib import Path
@@ -30,6 +31,8 @@ class MonitorTests(unittest.TestCase):
         self.assertNotEqual(monitor.digest({"rss": items_before}), monitor.digest({"rss": items_after}))
 
     def test_integrated_school_uses_shared_cms(self):
+        self.assertEqual(monitor.SCHOOLS[0], (1, "練馬区立みらい青空学園", "miraiaozora"))
+        self.assertEqual(monitor.CMS_ID_OVERRIDES[1], 166)
         self.assertEqual(monitor.CMS_ID_OVERRIDES[31], 159)
 
 
