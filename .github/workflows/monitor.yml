@@ -2,6 +2,12 @@ name: Monitor school websites
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/**"
+      - ".github/workflows/monitor.yml"
   schedule:
     - cron: "17 */3 * * *"
 
