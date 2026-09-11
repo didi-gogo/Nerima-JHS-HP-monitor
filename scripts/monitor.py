@@ -1,4 +1,3 @@
-/opt/homebrew/Library/Homebrew/cmd/shellenv.sh: line 21: /bin/ps: Operation not permitted
 #!/usr/bin/env python3
 """Fetch Nerima JHS sites server-side and write a stable monitoring snapshot."""
 
