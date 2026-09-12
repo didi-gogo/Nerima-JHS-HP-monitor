@@ -60,6 +60,7 @@
       <div class="toolbar">
         <button id="refreshBtn" class="primary" type="button">最新状態を再読み込み</button>
         <button id="openUpdatedBtn" class="secondary" type="button">更新校を順に開く</button>
+        <button id="openAllBtn" class="secondary" type="button">全校を順に開く</button>
         <button id="clearDataBtn" class="danger" type="button">確認履歴をクリア</button>
       </div>
       <div id="loadingNotice" class="notice info">最新の監視結果を読み込んでいます。</div>
@@ -180,15 +181,26 @@
       const acknowledgements = loadAcknowledgements();
       const updated = monitorData.schools.filter(school => getViewState(school, acknowledgements) === 'updated');
       if (!updated.length) { alert('更新ありの学校はありません。'); return; }
-      if (!confirm(`${updated.length}校を新しいタブで開き、確認済みにします。よろしいですか？`)) return;
-      updated.forEach(school => window.open(safeUrl(school.url), '_blank', 'noopener'));
+      openSchools(updated);
+    }
+    function openAllSchools() {
+      if (!monitorData?.schools.length) return;
+      openSchools(monitorData.schools);
+    }
+    function openSchools(schools) {
+      if (!confirm(`${schools.length}校を新しいタブで開き、確認済みにします。よろしいですか？`)) return;
+      schools.forEach(school => window.open(safeUrl(school.url), '_blank', 'noopener'));
+      const acknowledgements = loadAcknowledgements();
       const now = new Date().toISOString();
-      updated.forEach(school => { acknowledgements[school.id] = { hash: school.currentHash, visitedAt: now }; });
+      schools.forEach(school => {
+        if (school.currentHash) acknowledgements[school.id] = { hash: school.currentHash, visitedAt: now };
+      });
       saveAcknowledgements(acknowledgements);
       render();
     }
     document.getElementById('refreshBtn').addEventListener('click', loadStatus);
     document.getElementById('openUpdatedBtn').addEventListener('click', openUpdatedSchools);
+    document.getElementById('openAllBtn').addEventListener('click', openAllSchools);
     document.getElementById('clearDataBtn').addEventListener('click', () => {
       if (confirm('この端末に保存した確認履歴をすべて削除します。よろしいですか？')) { localStorage.removeItem(STORAGE_KEY); render(); }
     });
