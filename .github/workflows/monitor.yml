@@ -24,8 +24,17 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+      - name: Run monitor tests
+        run: python3 -m unittest discover -s tests -v
       - name: Fetch and compare 33 school websites
         run: python3 scripts/monitor.py
+      - name: Preserve failed monitoring diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: monitor-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/status.json
+          retention-days: 7
       - name: Commit the monitoring snapshot
         run: |
           if git diff --quiet -- data/status.json; then

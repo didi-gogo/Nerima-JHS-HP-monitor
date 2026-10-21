@@ -146,6 +146,7 @@ def monitor_school(school: tuple[int, str, str], previous: dict, checked_at: str
         except RuntimeError as error:
             rss_url, cms_url = fallback_rss_url, fallback_cms_url
             warning = f"旧公開URLは利用できないためCMSを直接監視: {error}"
+            result["warning"] = warning
         cms_html = ""
         rss_items: list[dict[str, str]] = []
         latest = None
@@ -216,6 +217,11 @@ def main() -> int:
     args = parser.parse_args()
     result = run(args.output, args.workers)
     print(f"checked={result['schoolCount']} success={result['successCount']} errors={result['errorCount']}")
+    for school in result["schools"]:
+        if school["error"]:
+            print(f"School {school['id']} ({school['name']}): {school['error']}")
+            if school.get("warning"):
+                print(f"  {school['warning']}")
     return 0 if result["successCount"] else 1
 
 
