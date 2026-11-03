@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "checkedAt": "2026-11-03T16:59:49Z",
+  "checkedAt": "2026-11-03T23:17:00Z",
   "schoolCount": 33,
   "successCount": 33,
   "errorCount": 0,
@@ -9,7 +9,7 @@
       "id": 1,
       "name": "練馬区立みらい青空学園",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=166",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "cd246d3d7425cff16c8fc698015e22c302ae70b469067565f8c377a485eddbe1",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -35,9 +35,9 @@
       "id": 2,
       "name": "練馬区立豊玉中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=202",
-      "checkedAt": "2026-11-03T16:59:49Z",
-      "currentHash": "2732809f26638defb92b7c2a4ce5341a188bde197a9c00fac50ba79bd5c099db",
-      "lastChangedAt": "2026-11-02T10:57:00Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
+      "currentHash": "40e17c6c8b563e1cd93338aa60ba8ef95fa3f2f9154635da70c1a39ef8647ae5",
+      "lastChangedAt": "2026-11-03T23:17:00Z",
       "latest": {
         "title": "10月31日(土)の献立",
         "link": "https://cms.nerima-tky.ed.jp/weblog/index.php?id=202&type=1&column_id=435272&category_id=6228",
@@ -50,8 +50,8 @@
         "legacyHomepageLastModified": "Fri, 02 Dec 2022 12:33:44 GMT",
         "hashes": {
           "legacyHomepage": "208b27bbbd4a31ad62b36a2c49000a9acc26a700335f716b5f1b754ffc1e7deb",
-          "cms": "8f66e3512c29614d4df0c2506912dffd0ebb43b69573289e1b281607ab45cfcb",
-          "rss": "72c11cc88b131bb6d78b37c1ca62a9b97b617f3c85339e268757721f120205fe"
+          "cms": "1196e99c443e56e54715fbb9f2249da0b3527253dae50a35eb343ce96e233069",
+          "rss": "80ab1a156f46069fc84569713df4beb82d0354d02a7b0041346e9c86c9b6a171"
         }
       },
       "warning": null,
@@ -61,7 +61,7 @@
       "id": 3,
       "name": "練馬区立豊玉第二中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=203",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "a1297854ef204e750d1c614ad930df288c69fa2023f6012bdfcb7a4cdc5d4c02",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -87,7 +87,7 @@
       "id": 4,
       "name": "練馬区立中村中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=204",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "ff5bc310c89432965d5f8b2b7d3831aa2e42f18abb38c5b960c1cafbe174d6de",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -113,7 +113,7 @@
       "id": 5,
       "name": "練馬区立開進第一中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=205",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "0f3120167f11089611b3a51ad2cecf3da1502db1b85d352a0cb413af107bf2aa",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -139,7 +139,7 @@
       "id": 6,
       "name": "練馬区立開進第二中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=206",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "b6bcb86c083055c099f357a7967e126560d6da886ccca14268df1684ee8a9f23",
       "lastChangedAt": "2026-11-03T16:59:49Z",
       "latest": {
@@ -165,7 +165,7 @@
       "id": 7,
       "name": "練馬区立開進第三中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=207",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "6de1597936f216bf65add84bdda4566809a97f1e306ad22d94eebf28c9257792",
       "lastChangedAt": "2026-10-26T04:41:22Z",
       "latest": {
@@ -191,7 +191,7 @@
       "id": 8,
       "name": "練馬区立開進第四中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=208",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "8d2b1d930ab3c7f8b6fe8d6baa2d4a9f978dd50408b818165369108135385b27",
       "lastChangedAt": "2026-10-23T03:21:24Z",
       "latest": {
@@ -217,7 +217,7 @@
       "id": 9,
       "name": "練馬区立北町中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=209",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "406ee1e8111a6327a125654bf90408c57a1f9f014265852610d38a25f5c5de16",
       "lastChangedAt": "2026-10-29T09:53:05Z",
       "latest": {
@@ -243,7 +243,7 @@
       "id": 10,
       "name": "練馬区立練馬中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=210",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "df381e00cf8ccd3e4fea79fc5891cfd582b604ad36a7ca7676ee60923e25c2e7",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -269,7 +269,7 @@
       "id": 11,
       "name": "練馬区立練馬東中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=211",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "ca7666bd271b7a2a5b3eb7d03e0c1ea759197ce19ea8a95748094d76be256527",
       "lastChangedAt": "2026-10-17T10:38:11Z",
       "latest": {
@@ -295,7 +295,7 @@
       "id": 12,
       "name": "練馬区立貫井中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=212",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "7711278697be62244201cd8071d69068d0af0a26f23fb09f1b1d43430bab2737",
       "lastChangedAt": "2026-10-26T04:41:22Z",
       "latest": {
@@ -321,7 +321,7 @@
       "id": 13,
       "name": "練馬区立田柄中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=213",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "129cb19a100ec6c89d9d5792486676d92b3e15a269c99fda5de8568b69a48d29",
       "lastChangedAt": "2026-11-03T16:59:49Z",
       "latest": {
@@ -347,7 +347,7 @@
       "id": 14,
       "name": "練馬区立豊渓中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=214",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "33709d1544ed90ecc8eb8c8a5ac72189451a0a2d39f27cd0df0c70ba3f556090",
       "lastChangedAt": "2026-11-03T16:59:49Z",
       "latest": {
@@ -373,7 +373,7 @@
       "id": 15,
       "name": "練馬区立光が丘第一中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=215",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "c028eea0b0dd8a332412b4a7291c5dea9f03244d3485d3870791047dccd90d59",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -399,7 +399,7 @@
       "id": 16,
       "name": "練馬区立光が丘第二中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=216",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "2b2a6b54666389818a4780c6f314be05edfb18f6e7096bee31791f73d32721fa",
       "lastChangedAt": "2026-10-30T09:56:30Z",
       "latest": {
@@ -425,7 +425,7 @@
       "id": 17,
       "name": "練馬区立光が丘第三中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=217",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "b05e0810b12ad3fdebbd1ba3fbcad1572bab046e1637a8c9b672aa6c59ec6bc3",
       "lastChangedAt": "2026-11-03T16:59:49Z",
       "latest": {
@@ -451,7 +451,7 @@
       "id": 18,
       "name": "練馬区立石神井中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=219",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "bdc238e5e1d9013431416a9dfff970ecb9f41d5fb24489f80489cfbf2d34eb0c",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -477,7 +477,7 @@
       "id": 19,
       "name": "練馬区立石神井東中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=220",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "351cd11e788666d9f000539c56ab4db0bcd84e8e73a0a1060a27126f301ce585",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -503,7 +503,7 @@
       "id": 20,
       "name": "練馬区立石神井西中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=221",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "dce7a047e5ba2bd985fe05041e7f6051c738a3e1f356b8c77fc78a28516c1f71",
       "lastChangedAt": "2026-11-03T16:59:49Z",
       "latest": {
@@ -529,7 +529,7 @@
       "id": 21,
       "name": "練馬区立石神井南中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=222",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "ab32745a3458e72caa7dd50c2e5d9a6a39e34d6c94442b0344c2e770e739e7b3",
       "lastChangedAt": "2026-11-02T00:39:50Z",
       "latest": {
@@ -555,7 +555,7 @@
       "id": 22,
       "name": "練馬区立上石神井中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=223",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "5fa81523a07239474d9a8b61e30b4d3d9d5cf39f0ae037d0d48675a2720b325d",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -581,7 +581,7 @@
       "id": 23,
       "name": "練馬区立南が丘中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=224",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "864c998fdb2e4f8b28417a949d02d604976614133a9efbfafff33ecf9b2e5e48",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -607,7 +607,7 @@
       "id": 24,
       "name": "練馬区立谷原中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=225",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "722aa96a1f89be0ebb5129030908cac64e04aa5ce34e97caf665aaff94e01cd1",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -633,7 +633,7 @@
       "id": 25,
       "name": "練馬区立三原台中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=226",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "5f4969db5d236e419b8af409db124b8ad99bd1c4113fcbfe3e94887d0f5a9257",
       "lastChangedAt": "2026-11-03T16:59:49Z",
       "latest": {
@@ -659,7 +659,7 @@
       "id": 26,
       "name": "練馬区立大泉中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=227",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "9851d92de82d489590ec5f98785f157129848d7e132ee4cd8dc0aacd02fc3dc8",
       "lastChangedAt": "2026-11-02T21:41:27Z",
       "latest": {
@@ -685,7 +685,7 @@
       "id": 27,
       "name": "練馬区立大泉第二中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=228",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "f657f55a854f6dfb758f68ea7967542be56b4809369d077b07f5e8b500e9f4b7",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": null,
@@ -707,7 +707,7 @@
       "id": 28,
       "name": "練馬区立大泉西中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=229",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "9397f1e16eed1392d9661f556845c4f91a148695648f3462cece3bc96d7cf533",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -733,7 +733,7 @@
       "id": 29,
       "name": "練馬区立大泉北中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=230",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "6365cd456611d286fa5955fb53d8ee31d4b066c67250b0a1c283b699c6406785",
       "lastChangedAt": "2026-10-27T08:55:25Z",
       "latest": {
@@ -759,7 +759,7 @@
       "id": 30,
       "name": "練馬区立大泉学園中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=231",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "fb6d018edf194fc3dddadad3ea3ca21720656019cdde247b6299033422aff8ec",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -785,7 +785,7 @@
       "id": 31,
       "name": "練馬区立大泉学園桜中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=159",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "eca1b57631430cad341bf4177cc09e966426cb594760dc50661a0f77d39e6c54",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -811,7 +811,7 @@
       "id": 32,
       "name": "練馬区立関中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=233",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "31c35a0e5535d6db3b0330caa57c4159b63640d97338c2e7b974e17f40782f17",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
@@ -837,7 +837,7 @@
       "id": 33,
       "name": "練馬区立八坂中学校",
       "url": "https://cms.nerima-tky.ed.jp/swas/index.php?id=234",
-      "checkedAt": "2026-11-03T16:59:49Z",
+      "checkedAt": "2026-11-03T23:17:00Z",
       "currentHash": "41a3f146d2f6c42fca386048a19041303ae247cd6d2fb3152e25deac9df24b67",
       "lastChangedAt": "2026-11-02T10:57:00Z",
       "latest": {
